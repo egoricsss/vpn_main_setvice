@@ -1,0 +1,38 @@
+networks:
+  vpn-network:
+    external: True
+
+services:
+#  postgresql:
+#    image: postgres
+#    restart: always
+#    shm_size: 128mb
+#
+#    volumes:
+#      - type: tmpfs
+#        target: /dev/shm
+#        tmpfs:
+#          size: 134217728
+#    env_file:
+#      - env/.env
+#    networks:
+#      - vpn-network
+
+  main-service:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    networks:
+      - vpn-network
+    image: main-service
+
+  migrations:
+    image: main-service
+    command:  [ "alembic", "upgrade", "head"]
+    env_file:
+      - env/.env
+    restart: ""
+    networks:
+      - vpn-network
+    depends_on:
+      - main-service
