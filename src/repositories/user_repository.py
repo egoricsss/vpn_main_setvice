@@ -1,6 +1,6 @@
 from src.core.database import TypedRepository
 from src.models import Users
-from src.schemes.user import (
+from src.schemes.users import (
     UserFilterScheme,
     UserModelScheme,
     UserUpdateScheme,

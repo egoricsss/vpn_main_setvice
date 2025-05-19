@@ -8,7 +8,8 @@ class UserModelScheme(BaseModel):
     is_active: bool
 
 
-class UserInsertScheme(UserModelScheme):
+class UserInsertScheme(BaseModel):
+    telegram_id: int
     is_active: bool = False
 
 
