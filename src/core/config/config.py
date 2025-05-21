@@ -1,4 +1,4 @@
-from pydantic import AfterValidator
+from pydantic import AfterValidator, BaseModel
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing import Any, Annotated
 import os
@@ -47,12 +47,12 @@ class _RedisConfig(BaseConfig):
         return f"redis://{self.REDIS_HOST}:{self.REDIS_PORT}/{self.REDIS_DATABASE}"
 
 
-# class _ApiConfig(BaseConfig):
-#     CORS_ORIGINS: list_str = os.getenv("CORS_ORIGINS")
-#     CORS_CREDENTIALS: bool = os.getenv("CORS_CREDENTIALS")
-#     CORS_METHODS: list_str = os.getenv("CORS_METHODS")
-#     CORS_HEADERS: list_str = os.getenv("CORS_HEADERS")
-#     MODE: str = os.getenv("MODE")
+class _ApiConfig(BaseModel):
+    CORS_ORIGINS: list_str = os.getenv("CORS_ORIGINS")
+    CORS_CREDENTIALS: bool = os.getenv("CORS_CREDENTIALS")
+    CORS_METHODS: list_str = os.getenv("CORS_METHODS")
+    CORS_HEADERS: list_str = os.getenv("CORS_HEADERS")
+    MODE: str = os.getenv("MODE")
 
 
 class _RMQConfig(BaseConfig):
@@ -77,7 +77,7 @@ class _Config:
     def __init__(self) -> None:
         self.db = _DBConfig()
         self.redis = _RedisConfig()
-        # self.api = _ApiConfig()
+        self.api = _ApiConfig()
         self.rmq = _RMQConfig()
         self.log = _LoggingConfig()
 
