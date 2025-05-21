@@ -1,4 +1,4 @@
-from .user import UserModelScheme, UserFilterScheme, UserInsertScheme, UserUpdateScheme
+from .users import UserModelScheme, UserFilterScheme, UserInsertScheme, UserUpdateScheme
 
 __all__ = [
     "UserUpdateScheme",

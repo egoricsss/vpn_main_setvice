@@ -20,6 +20,6 @@ class PaymentRepository(
     model_scheme=PaymentModelScheme,
     insert_scheme=PaymentInsertScheme,
     filter_scheme=PaymentFilterScheme,
-    update_scheme=PaymentUpdateScheme
+    update_scheme=PaymentUpdateScheme,
 ):
     pass
