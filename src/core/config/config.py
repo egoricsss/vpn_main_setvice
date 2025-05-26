@@ -37,36 +37,36 @@ class _DBConfig(BaseConfig):
         )
 
 
-class _RedisConfig(BaseConfig):
-    REDIS_HOST: str = os.getenv("REDIS_HOST")
-    REDIS_PORT: int = os.getenv("REDIS_PORT")
-    REDIS_DATABASE: str = os.getenv("REDIS_DATABASE")
+# class _RedisConfig(BaseConfig):
+#     REDIS_HOST: str = os.getenv("REDIS_HOST")
+#     REDIS_PORT: int = os.getenv("REDIS_PORT")
+#     REDIS_DATABASE: str = os.getenv("REDIS_DATABASE")
 
-    @property
-    def url(self) -> str:
-        return f"redis://{self.REDIS_HOST}:{self.REDIS_PORT}/{self.REDIS_DATABASE}"
-
-
-class _ApiConfig(BaseModel):
-    CORS_ORIGINS: list_str = os.getenv("CORS_ORIGINS")
-    CORS_CREDENTIALS: bool = os.getenv("CORS_CREDENTIALS")
-    CORS_METHODS: list_str = os.getenv("CORS_METHODS")
-    CORS_HEADERS: list_str = os.getenv("CORS_HEADERS")
-    MODE: str = os.getenv("MODE")
+#     @property
+#     def url(self) -> str:
+#         return f"redis://{self.REDIS_HOST}:{self.REDIS_PORT}/{self.REDIS_DATABASE}"
 
 
-class _RMQConfig(BaseConfig):
-    RMQ_USERNAME: str = os.getenv("RMQ_USERNAME")
-    RMQ_PASSWORD: str = os.getenv("RMQ_PASSWORD")
-    RMQ_HOST: str = os.getenv("RMQ_HOST")
-    RMQ_PORT: int = os.getenv("RMQ_PORT")
+# class _ApiConfig(BaseModel):
+#     CORS_ORIGINS: list_str = os.getenv("CORS_ORIGINS")
+#     CORS_CREDENTIALS: bool = os.getenv("CORS_CREDENTIALS")
+#     CORS_METHODS: list_str = os.getenv("CORS_METHODS")
+#     CORS_HEADERS: list_str = os.getenv("CORS_HEADERS")
+#     MODE: str = os.getenv("MODE")
 
-    @property
-    def url(self) -> str:
-        return (
-            f"amqp://{self.RMQ_USERNAME}:{self.RMQ_PASSWORD}"
-            f"@{self.RMQ_HOST}:{self.RMQ_PORT}"
-        )
+
+# class _RMQConfig(BaseConfig):
+#     RMQ_USERNAME: str = os.getenv("RMQ_USERNAME")
+#     RMQ_PASSWORD: str = os.getenv("RMQ_PASSWORD")
+#     RMQ_HOST: str = os.getenv("RMQ_HOST")
+#     RMQ_PORT: int = os.getenv("RMQ_PORT")
+
+#     @property
+#     def url(self) -> str:
+#         return (
+#             f"amqp://{self.RMQ_USERNAME}:{self.RMQ_PASSWORD}"
+#             f"@{self.RMQ_HOST}:{self.RMQ_PORT}"
+#         )
 
 
 class _LoggingConfig(BaseConfig):
@@ -76,9 +76,9 @@ class _LoggingConfig(BaseConfig):
 class _Config:
     def __init__(self) -> None:
         self.db = _DBConfig()
-        self.redis = _RedisConfig()
-        self.api = _ApiConfig()
-        self.rmq = _RMQConfig()
+        # self.redis = _RedisConfig()
+        # self.api = _ApiConfig()
+        # self.rmq = _RMQConfig()
         self.log = _LoggingConfig()
 
 

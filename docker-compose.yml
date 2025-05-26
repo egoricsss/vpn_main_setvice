@@ -1,35 +1,34 @@
 networks:
-  vpn-network:
-    external: True
+  vpn-bot:
+    external: true
 
 services:
   main-service:
     build:
       context: .
       dockerfile: docker/Dockerfile
+    image: main-service:latest
     networks:
-      - vpn-network
-    image: main-service
+      - vpn-bot
 
   migrations:
-    image: main-service
+    image: main-service:latest
     command:  [ "alembic", "upgrade", "head"]
     env_file:
       - env/.env
-    restart: ""
-    networks:
-      - vpn-network
     depends_on:
       - main-service
+    networks:
+      - vpn-bot
 
   web_application:
-    image: main-service
+    image: main-service:latest
     command: ["python", "-m", "src"]
     ports:
       - "8000:8000"
     env_file:
       - env/.env
-    networks:
-      - vpn-network
     depends_on:
       - migrations
+    networks:
+      - vpn-bot
