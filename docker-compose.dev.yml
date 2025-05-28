@@ -6,12 +6,12 @@ services:
   main-service:
     build:
       context: .
-      dockerfile: docker/Dockerfile
-    image: main-service:latest
+      dockerfile: docker/dev.Dockerfile
+    image: main-service:dev
 
   migrations:
-    image: main-service:latest
-    command:  [ "alembic", "upgrade", "head"]
+    image: main-service:dev
+    command: ["alembic", "upgrade", "head"]
     env_file:
       - env/.env
     depends_on:
@@ -20,8 +20,7 @@ services:
       - vpn-bot
 
   web_application:
-    image: main-service:latest
-    command: ["python", "-m", "src"]
+    image: main-service:dev
     ports:
       - "8000:8000"
     env_file:
@@ -30,3 +29,6 @@ services:
       - migrations
     networks:
       - vpn-bot
+    volumes:
+      - ./src:/app/src
+    command: ["watchmedo", "auto-restart", "--directory=/app", "--pattern=*.py", "--recursive", "--", "python", "-m", "src"]
